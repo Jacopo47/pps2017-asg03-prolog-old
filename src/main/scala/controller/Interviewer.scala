@@ -1,16 +1,21 @@
 package controller
 
+import alice.tuprolog.Term
 import model._
+
+import scala.collection.mutable.ListBuffer
 
 class Interviewer {
   val questions = Seq[Question](
     GenreQuestion(),
     GlassQuestion(),
-    CriminalQuestion(),
     MarriedQuestion(),
+    CriminalQuestion(),
     SurviveQuestion()
   )
-  
+
+  val responses: ListBuffer[String] = ListBuffer()
+
   
   def makeQuestion(): Unit = {
     makeQuestion(questions.head)
@@ -22,6 +27,7 @@ class Interviewer {
     val input = scala.io.StdIn.readLine()
 
     if(question.answers.getResults.contains(input.trim)) {
+      responses += input.trim
       if (! searchCharacter()) {
         try {
           makeQuestion(questions(questions.indexOf(question) + 1))
@@ -37,7 +43,8 @@ class Interviewer {
 
 
   private def searchCharacter(): Boolean = {
-    println(Seeker().solve())
+    val engine: Term => Stream[Term] = Seeker()
+    println("Elements -> " + engine(responses).size)
 
     false
   }

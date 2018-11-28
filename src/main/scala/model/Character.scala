@@ -1,23 +1,15 @@
 package model
 
-class Character(name: String,
-                genre: String,
-                wearGlasses: Boolean,
-                married: Boolean,
-                criminal: Boolean,
-                survive: Boolean) {
-
+case class Character(name: String,
+                     genre: String,
+                     wearGlasses: Boolean,
+                     married: Boolean,
+                     drugDealer: Boolean,
+                     survive: Boolean) {
+  override def toString: String = s"character('$name',$genre,$wearGlasses,$married,$drugDealer,$survive)."
 }
 
 object Character {
-  def apply(name: String,
-            genre: String,
-            wearGlasses: Boolean,
-            married: Boolean,
-            criminal: Boolean,
-            survive: Boolean): Character = new Character(name, genre, wearGlasses, married, criminal, survive)
-
-
   def apply(term: String): Character = {
     var fromString = term
     fromString = fromString.replace("character(", "")
@@ -25,11 +17,12 @@ object Character {
 
     val args = fromString.split(",")
 
-    new Character(args(0).replace("'", ""),
+    Character(args(0).replace("'", ""),
       args(1),
-      args(2).equals("y"),
-      args(3).equals("y"),
-      args(4).equals("y"),
-      args(5).equals("y"))
+      args(2).equals("true"),
+      args(3).equals("true"),
+      args(4).equals("true"),
+      args(5).equals("true"))
   }
+
 }
