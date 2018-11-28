@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'scala'
+    id 'application'
+}
+
+group 'prologAssignment'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+mainClassName = "Main"
+
+sourceSets {
+    main {
+        scala {
+            srcDirs = ['src/main/scala']
+        }
+    }
+    test {
+        scala {
+            srcDirs = ['src/test/scala']
+        }
+    }
+}
+
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'it.unibo.alice.tuprolog:tuprolog:3.3.0'
+    implementation 'org.scala-lang:scala-library:2.11.12'
+    testImplementation 'org.scalatest:scalatest_2.11:3.0.0'
+    testImplementation 'junit:junit:4.12'
+}
