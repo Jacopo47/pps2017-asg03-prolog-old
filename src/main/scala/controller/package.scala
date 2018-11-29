@@ -1,7 +1,7 @@
 import alice.tuprolog.Term
 
 package object controller {
-  val MAX_TERM_NUMBER: Int = 5
+  val MAX_TERM_NUMBER: Int = 7
 
   implicit def argsToQuery(args: Seq[String]): Term = {
     var query: String = "character(X,"
@@ -17,7 +17,6 @@ package object controller {
       }
     }
 
-    println(query.substring(0, query.length - 1) + ")")
     Term.createTerm(query.substring(0, query.length - 1) + ")")
   }
 }

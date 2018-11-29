@@ -8,16 +8,25 @@ import scala.collection.mutable.ListBuffer
 class Interviewer {
   val questions = Seq[Question](
     GenreQuestion(),
+    CriminalQuestion(),
+    SurviveQuestion(),
     GlassQuestion(),
     MarriedQuestion(),
-    CriminalQuestion(),
-    SurviveQuestion()
+    BlondeQuestion(),
+    LayerQuestion()
   )
 
+  val engine: Term => Stream[Term] = Seeker()
   val responses: ListBuffer[String] = ListBuffer()
 
   
   def makeQuestion(): Unit = {
+    println("Think about one of this characters:")
+    Character.getCharacters foreach {e => println(s"\t- ${e.name.toUpperCase}")}
+
+
+    1 to 10 foreach {_ => Console.print("."); Console.flush();Thread.sleep(500)}
+    println("Let's go!\n")
     makeQuestion(questions.head)
   }
   
@@ -43,10 +52,18 @@ class Interviewer {
 
 
   private def searchCharacter(): Boolean = {
-    val engine: Term => Stream[Term] = Seeker()
-    println("Elements -> " + engine(responses).size)
+    val characters = engine(responses)
 
-    false
+    characters.size match {
+      case 0 =>
+        println("The character about you're thinking isn't in the database... sorry!")
+        true
+      case 1 =>
+        println("You're thinking about -> " + Character(characters.head.toString).name.toUpperCase)
+        true
+      case _ => false
+    }
+
   }
 }
 

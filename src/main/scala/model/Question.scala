@@ -5,8 +5,6 @@ trait Question {
   def answers: Result
 }
 
-//case class Question(question: String, answers: Result) extends QuestionTrait
-
 case class Result(private val args: String*){
 
   def getResults : Seq[String] = args.toSeq
