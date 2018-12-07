@@ -29,3 +29,8 @@ build/*
 
 #Intellij IDEA file
 .idea/*
+.classpath
+.project
+.settings/
+bin/
+
